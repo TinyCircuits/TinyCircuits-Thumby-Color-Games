@@ -635,7 +635,6 @@ class PokerGame(Rectangle2DNode):
             return
         audio_channel = engine_audio.play(money_sound, self.current_channel, False)
         self.playing_sounds.append(audio_channel)
-        engine_io.rumble(0.5)
         self.last_sound_time = time.ticks_ms()
         self.current_channel = (self.current_channel + 1) % 4  # Iterate over the 4 channels
 
