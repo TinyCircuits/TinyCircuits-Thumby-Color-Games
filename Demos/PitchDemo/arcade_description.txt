@@ -1,4 +1,4 @@
-Pitch Demo provides a simple tone-playing utility for testing the Thumby Color.
+Pitch Demo is a simple tone player for testing the Thumby Color.
 
 Features:
 - Two independent tones which can be toggled on and off.
@@ -10,10 +10,11 @@ Features:
 
 Controls:
 - Left/Right: adjust tone A's frequency up/down a semitone.
-- LB/RB: adjust tone B's frequency up/down a semitone.
+- Left Bumper/Right Bumper: adjust tone B's frequency up/down a semitone.
 - A: toggle tone A on or off.
 - B: toggle tone B on or off.
 - Menu: exit.
 
 Author:  DeMatt
+
 Version:  1.0
