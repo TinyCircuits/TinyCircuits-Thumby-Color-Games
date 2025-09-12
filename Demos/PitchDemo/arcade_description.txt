@@ -1,0 +1,19 @@
+Pitch Demo provides a simple tone-playing utility for testing the Thumby Color.
+
+Features:
+- Two independent tones which can be toggled on and off.
+- Preset tone adjustment (A440 base, 12 Equal Temperament intervals).
+- Frequency AND letter/octave identification.
+- Frequencies are limited:
+    - Minimum:  110 Hz, A2
+    - Maximum:  7040 Hz, A8
+
+Controls:
+- Left/Right: adjust tone A's frequency up/down a semitone.
+- LB/RB: adjust tone B's frequency up/down a semitone.
+- A: toggle tone A on or off.
+- B: toggle tone B on or off.
+- Menu: exit.
+
+Author:  DeMatt
+Version:  1.0
