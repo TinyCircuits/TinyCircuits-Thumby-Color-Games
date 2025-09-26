@@ -1,3 +1,14 @@
+NAME=FroggyRoad
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/car.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/lily.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/frog.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/arcade_description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/arcade_title_video.mp4
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/log.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/FroggyRoad/icon.bmp
+SIZE=17709
+
 NAME=ThumbAtro
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/select.wav
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/money.wav
