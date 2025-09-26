@@ -1,0 +1,21 @@
+Bounce Demo provides a fun demonstration of the PhysicsCircle2DNode class.
+
+Features:
+- Up to 16 bouncing bubbles simultaneously.  Random color, initial position, and initial velocity.
+- Idle counter, showing how many milliseconds of idle time is available per frame (60 FPS = maximum 16 2/3 milliseconds per frame). Note that the counter bottoms out at zero!
+- Adjustable gravity.
+- Bounce beeps!  Or not.
+
+Controls:
+- A:  add a bubble (maximum of 16).
+- B:  delete the oldest bubble.
+- D-pad:  increase gravity in the specified direction (numbers in upper right).
+- Right Bumper:  reset gravity to zero.
+- Left Bumper:  cycle audio mode (icon in upper left):
+    - No audio:  no audio.
+    - Low audio:  bubbles beep when they bump each other.
+    - High audio:  bubbles beep when they bump anything.
+- Menu:  exit.
+
+Author:  DeMatt
+Version:  1.0
