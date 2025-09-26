@@ -1,3 +1,14 @@
+NAME=Demos
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/arcade_description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/arcade_title_video.mp4
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/arcade_description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/arcade_title_image.png
+SIZE=9689
+
 NAME=ThumbAtro
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/select.wav
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/money.wav
@@ -12,13 +23,6 @@ https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/m
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/BiggerCards2read.bmp
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/munro-narrow_10.bmp
 SIZE=293979
-
-NAME=Demos
-https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/arcade_description.txt
-https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/main.py
-https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/arcade_title_video.mp4
-https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/icon.bmp
-SIZE=5668
 
 NAME=ThumbSweeper
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbSweeper/arcade_description.txt
