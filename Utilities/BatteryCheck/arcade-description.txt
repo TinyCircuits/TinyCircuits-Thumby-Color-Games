@@ -11,4 +11,4 @@ Controls:
 - Menu button:  exit the program.
 
 Author:  DeMatt
-Version:  1.01
+Version:  1.02

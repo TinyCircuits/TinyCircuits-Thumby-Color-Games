@@ -2,6 +2,7 @@ import engine_main
 import engine
 import engine_io
 from engine_nodes import CameraNode, Text2DNode, Rectangle2DNode
+from engine_math import Vector2
 from time import sleep_ms
 
 engine.fps_limit(30)
@@ -12,18 +13,10 @@ btyBlack = Rectangle2DNode(color=0, width=30, height=90, layer=2)
 btyBlack.position.x = -30
 btyFilled = Rectangle2DNode(color=2016, width=30, layer=3)
 btyFilled.position.x = -30
-btyVolts = Text2DNode(layer=3, scale=2)
-btyVolts.position.x = 30
-btyVolts.position.y = -15
-btyCharging = Text2DNode(text="=D---", color=0, layer=3, scale=2)
-btyCharging.position.x = 28
-btyCharging.position.y = 12
-titleText = Text2DNode(text="Battery\n Check", scale=2, layer=3, letter_spacing=0.3)
-titleText.position.x = 26
-titleText.position.y = -50
-helpText = Text2DNode(text="LB  : brite+\nRB  : brite-\nMenu: exit", color=31727, layer=3)
-helpText.position.x = 30
-helpText.position.y = 40
+btyVolts = Text2DNode(layer=3, scale=Vector2(2,2), position=Vector2(30,-15))
+btyCharging = Text2DNode(text="=D---", color=0, layer=3, scale=Vector2(2,2), position=Vector2(28,12))
+titleText = Text2DNode(text="Battery\n Check", layer=3, scale=Vector2(2,2), position=Vector2(26,-50), letter_spacing=0.3)
+helpText = Text2DNode(text="LB  : brite+\nRB  : brite-\nMenu: exit", color=31727, layer=3, position=Vector2(30,40))
 
 while (not(engine_io.MENU.is_pressed)):
     btyPercent = engine_io.battery_level()
