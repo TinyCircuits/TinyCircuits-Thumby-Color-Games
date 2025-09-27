@@ -2,11 +2,11 @@ import engine_main # type: ignore
 import engine # type: ignore
 import engine_draw # type: ignore
 import engine_io as btn # type: ignore
-from engine_io import rumble # type: ignore
 from engine_resources import TextureResource as txtr, FontResource as font # type: ignore
 from engine_draw import Color, set_background # type: ignore
 from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text # type: ignore
 from engine_math import Vector2, Vector3 # type: ignore
+from engine_animation import Delay
 import engine_save # type: ignore
 import math
 import framebuf # type: ignore
@@ -18,20 +18,20 @@ engine.fps_limit(30)
 
 camera = CameraNode(position = Vector3(63, 63, 0))
 
-tileTxtr = txtr("/Games/ThumbSweeper/textures/tile.bmp")
-flagTxtr = txtr("/Games/ThumbSweeper/textures/flag.bmp")
-zeroTxtr = txtr("/Games/ThumbSweeper/textures/zero.bmp")
-oneTxtr = txtr("/Games/ThumbSweeper/textures/one.bmp")
-twoTxtr = txtr("/Games/ThumbSweeper/textures/two.bmp")
-threeTxtr = txtr("/Games/ThumbSweeper/textures/three.bmp")
-fourTxtr = txtr("/Games/ThumbSweeper/textures/four.bmp")
-fiveTxtr = txtr("/Games/ThumbSweeper/textures/five.bmp")
-sixTxtr = txtr("/Games/ThumbSweeper/textures/six.bmp")
-sevenTxtr = txtr("/Games/ThumbSweeper/textures/seven.bmp")
-eightTxtr = txtr("/Games/ThumbSweeper/textures/eight.bmp")
-selectTxtr = txtr("/Games/ThumbSweeper/textures/select.bmp")
+tileTxtr = txtr("textures/tile.bmp")
+flagTxtr = txtr("textures/flag.bmp")
+zeroTxtr = txtr("textures/zero.bmp")
+oneTxtr = txtr("textures/one.bmp")
+twoTxtr = txtr("textures/two.bmp")
+threeTxtr = txtr("textures/three.bmp")
+fourTxtr = txtr("textures/four.bmp")
+fiveTxtr = txtr("textures/five.bmp")
+sixTxtr = txtr("textures/six.bmp")
+sevenTxtr = txtr("textures/seven.bmp")
+eightTxtr = txtr("textures/eight.bmp")
+selectTxtr = txtr("textures/select.bmp")
 
-fontTxtr = font("/Games/ThumbSweeper/textures/5x7Font.bmp")
+fontTxtr = font("textures/5x7Font.bmp")
 
 screen = txtr(128, 128, 0, 16)
 
@@ -79,9 +79,14 @@ Screen = sprt(position = Vector2(63, 63),
             texture = screen,
             layer = 1)
 
+rumble_delay = Delay()
+def rumble(intensity=0.5, delay=90):
+    btn.rumble(intensity)
+    rumble_delay.start(delay, lambda _: btn.rumble(0.0))
+
+
 grid = []
 bomb = []
-picked = 0
 
 total = int(engine_save.load("total", 36))
 
@@ -108,7 +113,6 @@ def reset():
     global grid
     global bomb
     global total
-    global picked
     grid = [[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
             [9,9,9,9,9,9,9,9,9,9,9,9,9,9],
             [9,9,9,9,9,9,9,9,9,9,9,9,9,9],
@@ -147,8 +151,6 @@ def reset():
         if bomb[y][x] == 0:
             bomb[y][x] = 1
             count -= 1
-    
-    picked = 0
             
 reset()
 
@@ -185,78 +187,99 @@ posX = 6
 posY = 6
 
 
-def sweep(x, y, bomb):
+def countSurrounding(x, y, bomb, check):
     count = 0
-    global grid
     if x > 0 and y > 0:
-        if bomb[y - 1][x - 1] == 1:
+        if bomb[y - 1][x - 1] == check:
             count += 1
     if y > 0:
-        if bomb[y - 1][x] == 1:
+        if bomb[y - 1][x] == check:
             count += 1
     if x < 13 and y > 0:
-        if bomb[y - 1][x + 1] == 1:
+        if bomb[y - 1][x + 1] == check:
             count += 1
     if x > 0:
-        if bomb[y][x - 1] == 1:
+        if bomb[y][x - 1] == check:
             count += 1
     if x < 13:
-        if bomb[y][x + 1] == 1:
+        if bomb[y][x + 1] == check:
             count += 1
     if x > 0 and y < 13:
-        if bomb[y + 1][x - 1] == 1:
+        if bomb[y + 1][x - 1] == check:
             count += 1
     if y < 13:
-        if bomb[y + 1][x] == 1:
+        if bomb[y + 1][x] == check:
             count += 1
     if x < 13 and y < 13:
-        if bomb[y + 1][x + 1] == 1:
+        if bomb[y + 1][x + 1] == check:
             count += 1
-            
-    if count == 0:
+    return count
+
+def replaceSurrounding(x, y, replaceTarget, replaceValue):
+        global grid
         if x > 0 and y > 0:
-            if grid[y - 1][x - 1] == 9:
-                grid[y - 1][x - 1] = -1
+            if grid[y - 1][x - 1] == replaceTarget:
+                grid[y - 1][x - 1] = replaceValue
         if y > 0:
-            if grid[y - 1][x] == 9:
-                grid[y - 1][x] = -1
+            if grid[y - 1][x] == replaceTarget:
+                grid[y - 1][x] = replaceValue
         if x < 13 and y > 0:
-            if grid[y - 1][x + 1] == 9:
-                grid[y - 1][x + 1] = -1
+            if grid[y - 1][x + 1] == replaceTarget:
+                grid[y - 1][x + 1] = replaceValue
         if x > 0:
-            if grid[y][x - 1] == 9:
-                grid[y][x - 1] = -1
+            if grid[y][x - 1] == replaceTarget:
+                grid[y][x - 1] = replaceValue
         if x < 13:
-            if grid[y][x + 1] == 9:
-                grid[y][x + 1] = -1
+            if grid[y][x + 1] == replaceTarget:
+                grid[y][x + 1] = replaceValue
         if x > 0 and y < 13:
-            if grid[y + 1][x - 1] == 9:
-                grid[y + 1][x - 1] = -1
+            if grid[y + 1][x - 1] == replaceTarget:
+                grid[y + 1][x - 1] = replaceValue
         if y < 13:
-            if grid[y + 1][x] == 9:
-                grid[y + 1][x] = -1
+            if grid[y + 1][x] == replaceTarget:
+                grid[y + 1][x] = replaceValue
         if x < 13 and y < 13:
-            if grid[y + 1][x + 1] == 9:
-                grid[y + 1][x + 1] = -1
+            if grid[y + 1][x + 1] == replaceTarget:
+                grid[y + 1][x + 1] = replaceValue
+
+def sweep(x, y, bomb, check):
+    global grid
+    count = countSurrounding(x, y, bomb, 1)
+    flag = countSurrounding(x, y, grid, 10)
+  
+    if count == 0 or check == flag:
+        replaceSurrounding(x, y, 9, -1)
+        
     
     return count
 
 def clear():
     global grid
     global bomb
-    global picked
     for row in range(len(grid)):
         if min(grid[row]) == -1:
             for column in range(len(grid[row])):
                 if grid[row][column] == -1:
-                    grid[row][column] = sweep(column, row, bomb)
-                    picked += 1
+                    if bomb[row][column] == 1:
+                       reset()
+                       break
+                    grid[row][column] = sweep(column, row, bomb, 9)
 
+def hasWon():
+    global grid
+    global bomb
+    global total
+    flag = 0
+    for row in range(len(grid)):
+        for column in range(len(grid[row])):
+            if (grid[row][column] == 9 or grid[row][column] == 10) and bomb[row][column] == 0:
+                return False
+    return True
 
 while True:
     if engine.tick():
         
-        if picked == 196 - total:
+        if hasWon():
             
             topTxt.opacity = 1
             topTxt.text = 'You Win!'
@@ -273,22 +296,22 @@ while True:
         
         if btn.MENU.is_just_pressed:
             break
-        elif btn.UP.is_just_pressed:
+        elif btn.UP.is_pressed_autorepeat:
             if posY > 0:
                 posY -= 1
             else:
                 posY = 13
-        elif btn.DOWN.is_just_pressed:
+        elif btn.DOWN.is_pressed_autorepeat:
             if posY < 13:
                 posY += 1
             else:
                 posY = 0
-        elif btn.LEFT.is_just_pressed:
+        elif btn.LEFT.is_pressed_autorepeat:
             if posX > 0:
                 posX -= 1
             else:
                 posX = 13
-        elif btn.RIGHT.is_just_pressed:
+        elif btn.RIGHT.is_pressed_autorepeat:
             if posX < 13:
                 posX += 1
             else:
@@ -298,30 +321,20 @@ while True:
                 grid[posY][posX] = 10
             elif grid[posY][posX] == 10:
                 grid[posY][posX] = 9
+            elif grid[posY][posX] == countSurrounding(posX, posY, grid, 9) + countSurrounding(posX, posY, grid, 10):
+                replaceSurrounding(posX, posY, 9, 10)
         elif btn.A.is_just_pressed:
-            if grid[posY][posX] == 9:
+            if grid[posY][posX] < 10 and grid[posY][posX] > 0:
                 if bomb[posY][posX] == 1:
+                    rumble()
                     reset()
                 else:
-                    grid[posY][posX] = sweep(posX, posY, bomb)
-                    picked += 1
-        
+                    grid[posY][posX] = sweep(posX, posY, bomb, grid[posY][posX])
+                 
+
         clear()
         
         select.position = Vector2(posX * 9 + 5, posY * 9 + 5)
         draw()
         #fb.blit(fbuf,0,0)
         engine.tick()
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -624,6 +624,7 @@ class PokerGame(Rectangle2DNode):
     def toggle_volume(self):
         if self.volume == .25:
             self.volume = 0
+            engine_io.rumble(0)
         else:
             self.volume = .25
         engine_audio.set_volume(self.volume)
@@ -635,7 +636,6 @@ class PokerGame(Rectangle2DNode):
             return
         audio_channel = engine_audio.play(money_sound, self.current_channel, False)
         self.playing_sounds.append(audio_channel)
-        engine_io.rumble(0.5)
         self.last_sound_time = time.ticks_ms()
         self.current_channel = (self.current_channel + 1) % 4  # Iterate over the 4 channels
 
@@ -646,6 +646,7 @@ class PokerGame(Rectangle2DNode):
         self.last_sound_time = None
         self.sound_play_duration = 0
         self.sound_start_time = None
+        engine_io.rumble(0)
 
     def tick(self, dt):
         if engine_io.MENU.is_just_pressed:
