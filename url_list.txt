@@ -1,3 +1,10 @@
+NAME=Utilities
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Utilities/BatteryCheck/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Utilities/BatteryCheck/arcade-description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Utilities/BatteryCheck/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Utilities/BatteryCheck/arcade_title_image.png
+SIZE=3009
+
 NAME=Demos
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/arcade_description.txt
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/BounceDemo/main.py
@@ -7,7 +14,7 @@ https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/m
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/main.py
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/icon.bmp
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Demos/PitchDemo/arcade_title_image.png
-SIZE=9689
+SIZE=9596
 
 NAME=ThumbAtro
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbAtro/select.wav
