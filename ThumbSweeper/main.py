@@ -1,15 +1,15 @@
-import engine_main # type: ignore
-import engine # type: ignore
-import engine_draw # type: ignore
-import engine_io as btn # type: ignore
-from engine_resources import TextureResource as txtr, FontResource as font # type: ignore
-from engine_draw import Color, set_background # type: ignore
-from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text # type: ignore
-from engine_math import Vector2, Vector3 # type: ignore
+import engine_main
+import engine
+import engine_draw
+import engine_io as btn
+from engine_resources import TextureResource as txtr, FontResource as font
+from engine_draw import Color, set_background
+from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text
+from engine_math import Vector2, Vector3
 from engine_animation import Delay
-import engine_save # type: ignore
+import engine_save
 import math
-import framebuf # type: ignore
+import framebuf
 import random
 
 engine_save.set_location("save.data")
@@ -61,7 +61,6 @@ def color(r,g,b):
     return rgb565
 
 fb = engine_draw.front_fb()
-#fbuf = framebuf.FrameBuffer(bytearray(128 * 128 * 2), 128, 128, framebuf.RGB565)
 fbuf = framebuf.FrameBuffer(screen.data, 128, 128, framebuf.RGB565)
 tile = framebuf.FrameBuffer(tileTxtr.data, tileTxtr.width, tileTxtr.height, framebuf.RGB565)
 flag = framebuf.FrameBuffer(flagTxtr.data, flagTxtr.width, flagTxtr.height, framebuf.RGB565)
@@ -336,5 +335,4 @@ while True:
         
         select.position = Vector2(posX * 9 + 5, posY * 9 + 5)
         draw()
-        #fb.blit(fbuf,0,0)
         engine.tick()
