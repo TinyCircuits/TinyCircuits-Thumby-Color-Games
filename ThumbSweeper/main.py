@@ -2,11 +2,12 @@ import engine_main
 import engine
 import engine_draw
 import engine_io as btn
-from engine_resources import TextureResource as txtr, FontResource as font
+from engine_resources import TextureResource as txtr, FontResource as font, WaveSoundResource as wav
 from engine_draw import Color, set_background
 from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text
 from engine_math import Vector2, Vector3
 from engine_animation import Delay
+import engine_audio
 import engine_save
 import framebuf
 import random
@@ -29,6 +30,8 @@ sixTxtr = txtr("textures/six.bmp", True)
 sevenTxtr = txtr("textures/seven.bmp", True)
 eightTxtr = txtr("textures/eight.bmp", True)
 selectTxtr = txtr("textures/select.bmp", True)
+explodeWav = wav("sounds/explosion.wav", True)
+explodeTxtr = txtr("textures/select-explodes.bmp", True)
 
 fontTxtr = font("textures/5x7Font.bmp", True)
 
@@ -47,6 +50,14 @@ topTxt = text(position = Vector2(63, 60),
 totalTxt = text(position = Vector2(63, 70),
            font = fontTxtr,
            text = "36 / 196",
+           layer = 10)
+rumblTxt = text(position = Vector2(25, 30),
+           font = fontTxtr,
+           text = "Rumble ON ",
+           layer = 10)
+soundTxt = text(position = Vector2(102, 30),
+           font = fontTxtr,
+           text = "Sound ON ",
            layer = 10)
 
 fb = engine_draw.front_fb()
@@ -72,15 +83,22 @@ def rumble(intensity=0.5, delay=90):
     btn.rumble(intensity)
     rumble_delay.start(delay, lambda _: btn.rumble(0.0))
 
-
 grid = []
 bomb = []
 
 total = int(engine_save.load("total", 36))
+rumblFlag = int(engine_save.load("rumble", 1))
+soundFlag = int(engine_save.load("sound", 1))
 
 while True:
     if engine.tick():
         totalTxt.text = f'{total} / 196'
+        rumblTxt.text = "Rumble ON " if rumblFlag == 1 else "Rumble OFF"
+        soundTxt.text = "Sound ON " if soundFlag == 1 else "Sound OFF"
+        if btn.LB.is_just_pressed:
+            rumblFlag = 0 if rumblFlag == 1 else 1
+        if btn.RB.is_just_pressed:
+            soundFlag = 0 if soundFlag == 1 else 1
         if btn.UP.is_pressed_autorepeat:
             if total < 196: total += 1
         elif btn.RIGHT.is_pressed_autorepeat:
@@ -96,10 +114,35 @@ while True:
         engine.tick()
     
 engine_save.save("total", round(total))
+engine_save.save("rumble", round(rumblFlag))
+engine_save.save("sound", round(soundFlag))
 select.opacity = 1
 totalTxt.opacity = 0
 topTxt.opacity = 0
+rumblTxt.opacity = 0
+soundTxt.opacity = 0
 
+def explodes(posX, posY):
+    global select
+    global rumblFlag
+    global soundFlag
+    explodeSprt = sprt(position = Vector2(posX * 9 + 4, posY * 9 + 4),
+                       texture = explodeTxtr,
+                       transparent_color = Color(0, 0, 0),
+                       fps = 8,
+                       frame_count_x = 8,
+                       rotation = random.randint(0,3) * 1.570796326794897,
+                       opacity = 1,
+                       playing = True,
+                       layer = 11)
+    select.opacity = 0
+    if (soundFlag == 1): audioChan = engine_audio.play(explodeWav, 0, False)
+    if (rumblFlag == 1): rumble()
+    while(explodeSprt.frame_current_x == 0): engine.tick() # First frame of animation
+    while(explodeSprt.frame_current_x > 0): engine.tick() # Remaining frames of animation
+    explodeSprt.opacity = 0
+    explodeSprt.mark_destroy()
+    select.opacity = 1
 
 def reset():
     global grid
@@ -145,7 +188,6 @@ def reset():
             count -= 1
             
 reset()
-
 
 def draw():
     fbuf.rect(-1, -1, 128, 128, 0, 1)
@@ -267,7 +309,7 @@ while True:
         elif btn.A.is_just_pressed:
             if grid[posY][posX] < 10 and grid[posY][posX] > 0:
                 if bomb[posY][posX] == 1:
-                    rumble()
+                    explodes(posX, posY)
                     reset()
                 else:
                     grid[posY][posX] = sweep(posX, posY, bomb, grid[posY][posX])
