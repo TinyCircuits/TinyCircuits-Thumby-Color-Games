@@ -147,98 +147,65 @@ def draw():
     fbuf.rect(-1, -1, 128, 128, 0, 1)
     for y in range(len(grid)):
         for x in range(len(grid[y])):
-            if grid[y][x] == 9:
-                fbuf.blit(tile, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 10:
-                fbuf.blit(flag, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 0:
-                fbuf.blit(zero, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 1:
-                fbuf.blit(one, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 2:
-                fbuf.blit(two, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 3:
-                fbuf.blit(three, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 4:
-                fbuf.blit(four, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 5:
-                fbuf.blit(five, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 6:
-                fbuf.blit(six, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 7:
-                fbuf.blit(seven, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 8:
-                fbuf.blit(eight, x * 9 + 1, y * 9 + 1)
-                
+            if grid[y][x] == 9:    fbuf.blit(tile, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 10: fbuf.blit(flag, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 0:  fbuf.blit(zero, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 1:  fbuf.blit(one, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 2:  fbuf.blit(two, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 3:  fbuf.blit(three, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 4:  fbuf.blit(four, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 5:  fbuf.blit(five, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 6:  fbuf.blit(six, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 7:  fbuf.blit(seven, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 8:  fbuf.blit(eight, x * 9 + 1, y * 9 + 1)
 
 posX = 6
 posY = 6
 
-
 def countSurrounding(x, y, bomb, check):
     count = 0
     if x > 0 and y > 0:
-        if bomb[y - 1][x - 1] == check:
-            count += 1
+        if bomb[y - 1][x - 1] == check: count += 1
     if y > 0:
-        if bomb[y - 1][x] == check:
-            count += 1
+        if bomb[y - 1][x] == check: count += 1
     if x < 13 and y > 0:
-        if bomb[y - 1][x + 1] == check:
-            count += 1
+        if bomb[y - 1][x + 1] == check:  count += 1
     if x > 0:
-        if bomb[y][x - 1] == check:
-            count += 1
+        if bomb[y][x - 1] == check: count += 1
     if x < 13:
-        if bomb[y][x + 1] == check:
-            count += 1
+        if bomb[y][x + 1] == check: count += 1
     if x > 0 and y < 13:
-        if bomb[y + 1][x - 1] == check:
-            count += 1
+        if bomb[y + 1][x - 1] == check: count += 1
     if y < 13:
-        if bomb[y + 1][x] == check:
-            count += 1
+        if bomb[y + 1][x] == check: count += 1
     if x < 13 and y < 13:
-        if bomb[y + 1][x + 1] == check:
-            count += 1
+        if bomb[y + 1][x + 1] == check: count += 1
     return count
 
 def replaceSurrounding(x, y, replaceTarget, replaceValue):
         global grid
         if x > 0 and y > 0:
-            if grid[y - 1][x - 1] == replaceTarget:
-                grid[y - 1][x - 1] = replaceValue
+            if grid[y - 1][x - 1] == replaceTarget: grid[y - 1][x - 1] = replaceValue
         if y > 0:
-            if grid[y - 1][x] == replaceTarget:
-                grid[y - 1][x] = replaceValue
+            if grid[y - 1][x] == replaceTarget: grid[y - 1][x] = replaceValue
         if x < 13 and y > 0:
-            if grid[y - 1][x + 1] == replaceTarget:
-                grid[y - 1][x + 1] = replaceValue
+            if grid[y - 1][x + 1] == replaceTarget: grid[y - 1][x + 1] = replaceValue
         if x > 0:
-            if grid[y][x - 1] == replaceTarget:
-                grid[y][x - 1] = replaceValue
+            if grid[y][x - 1] == replaceTarget: grid[y][x - 1] = replaceValue
         if x < 13:
-            if grid[y][x + 1] == replaceTarget:
-                grid[y][x + 1] = replaceValue
+            if grid[y][x + 1] == replaceTarget: grid[y][x + 1] = replaceValue
         if x > 0 and y < 13:
-            if grid[y + 1][x - 1] == replaceTarget:
-                grid[y + 1][x - 1] = replaceValue
+            if grid[y + 1][x - 1] == replaceTarget: grid[y + 1][x - 1] = replaceValue
         if y < 13:
-            if grid[y + 1][x] == replaceTarget:
-                grid[y + 1][x] = replaceValue
+            if grid[y + 1][x] == replaceTarget: grid[y + 1][x] = replaceValue
         if x < 13 and y < 13:
-            if grid[y + 1][x + 1] == replaceTarget:
-                grid[y + 1][x + 1] = replaceValue
+            if grid[y + 1][x + 1] == replaceTarget: grid[y + 1][x + 1] = replaceValue
 
 def sweep(x, y, bomb, check):
     global grid
     count = countSurrounding(x, y, bomb, 1)
     flag = countSurrounding(x, y, grid, 10)
-  
-    if count == 0 or check == flag:
-        replaceSurrounding(x, y, 9, -1)
-        
-    
+    if count == 0 or check == flag: replaceSurrounding(x, y, 9, -1)
     return count
 
 def clear():
@@ -266,49 +233,31 @@ def hasWon():
 
 while True:
     if engine.tick():
-        
         if hasWon():
-            
             topTxt.opacity = 1
             topTxt.text = 'You Win!'
-            
             if btn.A.is_just_pressed:
                 reset()
                 topTxt.opacity = 0
             elif btn.MENU.is_just_pressed:
                 break
-            
             continue
-            
-        
-        
-        if btn.MENU.is_just_pressed:
-            break
+        if btn.MENU.is_just_pressed: break
         elif btn.UP.is_pressed_autorepeat:
-            if posY > 0:
-                posY -= 1
-            else:
-                posY = 13
+            if posY > 0: posY -= 1
+            else: posY = 13
         elif btn.DOWN.is_pressed_autorepeat:
-            if posY < 13:
-                posY += 1
-            else:
-                posY = 0
+            if posY < 13: posY += 1
+            else: posY = 0
         elif btn.LEFT.is_pressed_autorepeat:
-            if posX > 0:
-                posX -= 1
-            else:
-                posX = 13
+            if posX > 0: posX -= 1
+            else: posX = 13
         elif btn.RIGHT.is_pressed_autorepeat:
-            if posX < 13:
-                posX += 1
-            else:
-                posX = 0
+            if posX < 13: posX += 1
+            else: posX = 0
         elif btn.B.is_just_pressed:
-            if grid[posY][posX] == 9:
-                grid[posY][posX] = 10
-            elif grid[posY][posX] == 10:
-                grid[posY][posX] = 9
+            if grid[posY][posX] == 9: grid[posY][posX] = 10
+            elif grid[posY][posX] == 10: grid[posY][posX] = 9
             elif grid[posY][posX] == countSurrounding(posX, posY, grid, 9) + countSurrounding(posX, posY, grid, 10):
                 replaceSurrounding(posX, posY, 9, 10)
         elif btn.A.is_just_pressed:
@@ -318,7 +267,6 @@ while True:
                     reset()
                 else:
                     grid[posY][posX] = sweep(posX, posY, bomb, grid[posY][posX])
-                 
         clear()
         
         select.position = Vector2(posX * 9 + 5, posY * 9 + 5)
