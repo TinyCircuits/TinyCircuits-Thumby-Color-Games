@@ -43,16 +43,10 @@ select = sprt(position = Vector2(0, 0),
 topTxt = text(position = Vector2(63, 60),
            font = fontTxtr,
            text = "Set Bomb Count",
-           scale = Vector2(1, 1),
-           letter_spacing = 1,
-           color = Color(1, 1, 1),
            layer = 10)
 totalTxt = text(position = Vector2(63, 70),
            font = fontTxtr,
            text = "36 / 196",
-           scale = Vector2(1, 1),
-           letter_spacing = 1,
-           color = Color(1, 1, 1),
            layer = 10)
 
 def color(r,g,b):
@@ -329,7 +323,6 @@ while True:
                 else:
                     grid[posY][posX] = sweep(posX, posY, bomb, grid[posY][posX])
                  
-
         clear()
         
         select.position = Vector2(posX * 9 + 5, posY * 9 + 5)
