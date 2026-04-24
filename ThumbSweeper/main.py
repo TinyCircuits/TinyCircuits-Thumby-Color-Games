@@ -81,12 +81,16 @@ total = int(engine_save.load("total", 36))
 while True:
     if engine.tick():
         totalTxt.text = f'{total} / 196'
-        if btn.UP.is_just_pressed or btn.RIGHT.is_just_pressed:
-            if total < 196:
-                total += 1
-        elif btn.DOWN.is_just_pressed or btn.LEFT.is_just_pressed:
-            if total > 0:
-                total -= 1
+        if btn.UP.is_pressed_autorepeat:
+            if total < 196: total += 1
+        elif btn.RIGHT.is_pressed_autorepeat:
+            if total < 187: total += 10
+            else: total = 196
+        elif btn.DOWN.is_pressed_autorepeat:
+            if total > 0: total -= 1
+        elif btn.LEFT.is_pressed_autorepeat:
+            if total > 9: total -= 10
+            else: total = 0
         elif btn.A.is_just_pressed:
             break
         engine.tick()
