@@ -8,7 +8,6 @@ from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text
 from engine_math import Vector2, Vector3
 from engine_animation import Delay
 import engine_save
-import math
 import framebuf
 import random
 
