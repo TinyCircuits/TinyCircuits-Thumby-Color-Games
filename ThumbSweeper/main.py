@@ -49,10 +49,6 @@ totalTxt = text(position = Vector2(63, 70),
            text = "36 / 196",
            layer = 10)
 
-def color(r,g,b):
-    rgb565 = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3)
-    return rgb565
-
 fb = engine_draw.front_fb()
 fbuf = framebuf.FrameBuffer(screen.data, 128, 128, framebuf.RGB565)
 tile = framebuf.FrameBuffer(tileTxtr.data, tileTxtr.width, tileTxtr.height, framebuf.RGB565)
@@ -148,7 +144,7 @@ reset()
 
 
 def draw():
-    fbuf.rect(-1, -1, 128, 128, color(0, 0, 0), 1)
+    fbuf.rect(-1, -1, 128, 128, 0, 1)
     for y in range(len(grid)):
         for x in range(len(grid[y])):
             if grid[y][x] == 9:
