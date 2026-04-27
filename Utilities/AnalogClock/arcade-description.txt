@@ -1,0 +1,22 @@
+AnalogClock allows the user to set the Thumby Color's Real-Time Clock, and displays a simple analog clock using the RTC time.
+
+Features:
+- Multiple choices for hour labels (Roman - Arabic - none)
+- Convenient menu for setting the date and time (and viewing the time & date digitally).
+
+Controls:
+- B button:  toggle hour label choice (Roman - Arabic - none).
+- Right bumper:  open or close the time-setting menu.
+- D-pad Left and Right:  change selection within the menu.
+- D-pad Up and Down:  adjust selected value; tap for individual steps, or hold for fast-forwards.
+- A button:  set RTC to selected time and date.
+- Menu button:  exit the program.
+
+Notes:
+- The RTC can only hold its time while the Thumby Color's battery has power.  AnalogClock will prompt to set the time if the RTC loses power.
+- The RTC is only "reasonably" accurate.  Neither the Thumby Color nor AnalogClock are precision timekeeping systems.
+- Only some effort has been made to program AnalogClock to accept only valid dates and times.  If an invalid date (e.g. 2026/Feb/31) is set, the RTC-accepted date will be updated to the equivalent valid date (2026/Mar/3 in the example).
+- AnalogClock only supports Common Era (Gregorian) dates, and a 12 hour clock face.  Sorry, Islamic/Hebrew/Hindu/Ethiopian/etc. calendar fans;  sorry, 24-hour/metric-time fans.
+
+Author:  DeMatt
+Version:  1.0

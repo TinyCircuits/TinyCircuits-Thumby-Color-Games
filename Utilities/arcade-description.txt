@@ -1,0 +1,4 @@
+The "Utilities" package includes the following programs:
+
+- AnalogClock (by DeMatt):  allows the user to set the Thumby Color's real-time clock and displays the time from it.
+- BatteryCheck (by DeMatt):  displays battery information.
