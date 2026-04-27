@@ -16,7 +16,7 @@ btyFilled.position.x = -30
 btyVolts = Text2DNode(layer=3, scale=Vector2(2,2), position=Vector2(30,-15))
 btyCharging = Text2DNode(text="=D---", color=0, layer=3, scale=Vector2(2,2), position=Vector2(28,12))
 titleText = Text2DNode(text="Battery\n Check", layer=3, scale=Vector2(2,2), position=Vector2(26,-50), letter_spacing=0.3)
-helpText = Text2DNode(text="LB  : brite+\nRB  : brite-\nMenu: exit", color=31727, layer=3, position=Vector2(30,40))
+helpText = Text2DNode(text="LB  : brite-\nRB  : brite+\nMenu: exit", color=31727, layer=3, position=Vector2(30,40))
 
 while (not(engine_io.MENU.is_pressed)):
     btyPercent = engine_io.battery_level()
