@@ -278,8 +278,9 @@ def clear():
             for column in range(len(grid[row])):
                 if grid[row][column] == -1:
                     if bomb[row][column] == 1:
-                       reset()
-                       break
+                        explodes(column, row)
+                        reset()
+                        break
                     grid[row][column] = sweep(column, row, bomb, 9)
 
 def hasWon():
