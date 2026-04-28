@@ -2,7 +2,7 @@ import engine_main
 import engine
 import engine_draw
 import engine_io as btn
-from engine_resources import TextureResource as txtr, FontResource as font, WaveSoundResource as wav
+from engine_resources import TextureResource as txtr, FontResource as font, WaveSoundResource as wav, RTTTLSoundResource as rtttl
 from engine_draw import Color, set_background
 from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text
 from engine_math import Vector2, Vector3
@@ -122,6 +122,20 @@ topTxt.opacity = 0
 rumblTxt.opacity = 0
 soundTxt.opacity = 0
 
+if (total < 3) or (total > 193):
+    melody = rtttl("sounds/weird_vo1.rtttl")
+    harmony = rtttl("sounds/weird_vo2.rtttl")
+elif total < 27:
+    melody = rtttl("sounds/easy_vo1.rtttl")
+    harmony = rtttl("sounds/easy_vo1.rtttl")
+elif total < 45:
+    melody = rtttl("sounds/med_vo1.rtttl")
+    harmony = rtttl("sounds/med_vo2.rtttl")
+else:
+    melody = rtttl("sounds/hard_vo1.rtttl")
+    harmony = rtttl("sounds/hard_vo2.rtttl")
+hasFanfared = False
+
 def explodes(posX, posY):
     global select
     global rumblFlag
@@ -136,15 +150,16 @@ def explodes(posX, posY):
                        playing = True,
                        layer = 11)
     select.opacity = 0
-    if (soundFlag == 1): audioChan = engine_audio.play(explodeWav, 0, False)
-    if (rumblFlag == 1): rumble()
-    while(explodeSprt.frame_current_x == 0): engine.tick() # First frame of animation
-    while(explodeSprt.frame_current_x > 0): engine.tick() # Remaining frames of animation
+    if soundFlag == 1: audioChan = engine_audio.play(explodeWav, 0, False)
+    if rumblFlag == 1: rumble()
+    while explodeSprt.frame_current_x == 0: engine.tick() # First frame of animation
+    while explodeSprt.frame_current_x > 0: engine.tick() # Remaining frames of animation
     explodeSprt.opacity = 0
     explodeSprt.mark_destroy()
     select.opacity = 1
 
 def reset():
+    global hasFanfared
     global grid
     global bomb
     global total
@@ -179,6 +194,7 @@ def reset():
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0],]
 
     count = total
+    hasFanfared = False
 
     while count > 0:
         x = random.randint(0, 13)
@@ -282,6 +298,12 @@ while True:
         if hasWon():
             topTxt.opacity = 1
             topTxt.text = 'You Win!'
+            if (soundFlag == 1) and (hasFanfared == False):
+                audioChan1 = engine_audio.play(melody, 1, False)
+                audioChan2 = engine_audio.play(harmony, 2, False)
+                audioChan1.gain = 0.6
+                audioChan2.gain = 0.3
+                hasFanfared = True
             if btn.A.is_just_pressed:
                 reset()
                 topTxt.opacity = 0
