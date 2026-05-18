@@ -1,0 +1,9 @@
+DeepThumb
+
+Chess with a pure-MicroPython port of the Chal engine.
+5 difficulty levels from BEGINNER (~800 ELO) to EXPERT (~2200 ELO).
+Play as white or black.
+
+Chess piece tiny sprites by AyreGuitar
+
+Author: Austinio (early tester)
