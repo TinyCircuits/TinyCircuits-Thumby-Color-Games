@@ -10,6 +10,35 @@ https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/m
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/Utilities/AnalogClock/arcade_description.txt
 SIZE=12622
 
+NAME=[HIT and BLOW_Col]
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/arcade_title_video.mp4
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/B_Count.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/NumberSmall.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/balloon1.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/balloon4.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/NumberBIG.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/BG.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/Continue.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/CH_HIT.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/AYANE01.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/rip01.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/balloon3.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/UnderBand.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/BINGO.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/TXT_TRIES.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/H_Count.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/AYANE_BINGO.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/balloon2.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/CH_BLOW.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/TXT_HITand.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/TXT_Nothing.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/BLANK.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/bmp/eye01.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/[HIT and BLOW_Col]/arcade_description.txt
+SIZE=119178
+
 NAME=ThumbSweeper
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbSweeper/main.py
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbSweeper/icon.bmp
