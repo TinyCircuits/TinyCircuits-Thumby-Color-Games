@@ -1,15 +1,15 @@
-import engine_main # type: ignore
-import engine # type: ignore
-import engine_draw # type: ignore
-import engine_io as btn # type: ignore
-from engine_resources import TextureResource as txtr, FontResource as font # type: ignore
-from engine_draw import Color, set_background # type: ignore
-from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text # type: ignore
-from engine_math import Vector2, Vector3 # type: ignore
+import engine_main
+import engine
+import engine_draw
+import engine_io as btn
+from engine_resources import TextureResource as txtr, FontResource as font, WaveSoundResource as wav, RTTTLSoundResource as rtttl
+from engine_draw import Color, set_background
+from engine_nodes import CameraNode, Sprite2DNode as sprt, Text2DNode as text
+from engine_math import Vector2, Vector3
 from engine_animation import Delay
-import engine_save # type: ignore
-import math
-import framebuf # type: ignore
+import engine_audio
+import engine_save
+import framebuf
 import random
 
 engine_save.set_location("save.data")
@@ -18,20 +18,22 @@ engine.fps_limit(30)
 
 camera = CameraNode(position = Vector3(63, 63, 0))
 
-tileTxtr = txtr("textures/tile.bmp")
-flagTxtr = txtr("textures/flag.bmp")
-zeroTxtr = txtr("textures/zero.bmp")
-oneTxtr = txtr("textures/one.bmp")
-twoTxtr = txtr("textures/two.bmp")
-threeTxtr = txtr("textures/three.bmp")
-fourTxtr = txtr("textures/four.bmp")
-fiveTxtr = txtr("textures/five.bmp")
-sixTxtr = txtr("textures/six.bmp")
-sevenTxtr = txtr("textures/seven.bmp")
-eightTxtr = txtr("textures/eight.bmp")
-selectTxtr = txtr("textures/select.bmp")
+tileTxtr = txtr("textures/tile.bmp", True)
+flagTxtr = txtr("textures/flag.bmp", True)
+zeroTxtr = txtr("textures/zero.bmp", True)
+oneTxtr = txtr("textures/one.bmp", True)
+twoTxtr = txtr("textures/two.bmp", True)
+threeTxtr = txtr("textures/three.bmp", True)
+fourTxtr = txtr("textures/four.bmp", True)
+fiveTxtr = txtr("textures/five.bmp", True)
+sixTxtr = txtr("textures/six.bmp", True)
+sevenTxtr = txtr("textures/seven.bmp", True)
+eightTxtr = txtr("textures/eight.bmp", True)
+selectTxtr = txtr("textures/select.bmp", True)
+explodeWav = wav("sounds/explosion.wav", True)
+explodeTxtr = txtr("textures/select-explodes.bmp", True)
 
-fontTxtr = font("textures/5x7Font.bmp")
+fontTxtr = font("textures/5x7Font.bmp", True)
 
 screen = txtr(128, 128, 0, 16)
 
@@ -44,24 +46,21 @@ select = sprt(position = Vector2(0, 0),
 topTxt = text(position = Vector2(63, 60),
            font = fontTxtr,
            text = "Set Bomb Count",
-           scale = Vector2(1, 1),
-           letter_spacing = 1,
-           color = Color(1, 1, 1),
            layer = 10)
 totalTxt = text(position = Vector2(63, 70),
            font = fontTxtr,
            text = "36 / 196",
-           scale = Vector2(1, 1),
-           letter_spacing = 1,
-           color = Color(1, 1, 1),
+           layer = 10)
+rumblTxt = text(position = Vector2(25, 30),
+           font = fontTxtr,
+           text = "Rumble ON ",
+           layer = 10)
+soundTxt = text(position = Vector2(102, 30),
+           font = fontTxtr,
+           text = "Sound ON ",
            layer = 10)
 
-def color(r,g,b):
-    rgb565 = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3)
-    return rgb565
-
 fb = engine_draw.front_fb()
-#fbuf = framebuf.FrameBuffer(bytearray(128 * 128 * 2), 128, 128, framebuf.RGB565)
 fbuf = framebuf.FrameBuffer(screen.data, 128, 128, framebuf.RGB565)
 tile = framebuf.FrameBuffer(tileTxtr.data, tileTxtr.width, tileTxtr.height, framebuf.RGB565)
 flag = framebuf.FrameBuffer(flagTxtr.data, flagTxtr.width, flagTxtr.height, framebuf.RGB565)
@@ -84,32 +83,83 @@ def rumble(intensity=0.5, delay=90):
     btn.rumble(intensity)
     rumble_delay.start(delay, lambda _: btn.rumble(0.0))
 
-
 grid = []
 bomb = []
 
 total = int(engine_save.load("total", 36))
+rumblFlag = int(engine_save.load("rumble", 1))
+soundFlag = int(engine_save.load("sound", 1))
 
 while True:
     if engine.tick():
         totalTxt.text = f'{total} / 196'
-        if btn.UP.is_just_pressed or btn.RIGHT.is_just_pressed:
-            if total < 196:
-                total += 1
-        elif btn.DOWN.is_just_pressed or btn.LEFT.is_just_pressed:
-            if total > 0:
-                total -= 1
+        rumblTxt.text = "Rumble ON " if rumblFlag == 1 else "Rumble OFF"
+        soundTxt.text = "Sound ON " if soundFlag == 1 else "Sound OFF"
+        if btn.LB.is_just_pressed:
+            rumblFlag = 0 if rumblFlag == 1 else 1
+        if btn.RB.is_just_pressed:
+            soundFlag = 0 if soundFlag == 1 else 1
+        if btn.UP.is_pressed_autorepeat:
+            if total < 196: total += 1
+        elif btn.RIGHT.is_pressed_autorepeat:
+            if total < 187: total += 10
+            else: total = 196
+        elif btn.DOWN.is_pressed_autorepeat:
+            if total > 0: total -= 1
+        elif btn.LEFT.is_pressed_autorepeat:
+            if total > 9: total -= 10
+            else: total = 0
         elif btn.A.is_just_pressed:
             break
         engine.tick()
     
 engine_save.save("total", round(total))
+engine_save.save("rumble", round(rumblFlag))
+engine_save.save("sound", round(soundFlag))
 select.opacity = 1
 totalTxt.opacity = 0
 topTxt.opacity = 0
+rumblTxt.opacity = 0
+soundTxt.opacity = 0
 
+if (total < 3) or (total > 193):
+    melody = rtttl("sounds/weird_vo1.rtttl")
+    harmony = rtttl("sounds/weird_vo2.rtttl")
+elif total < 27:
+    melody = rtttl("sounds/easy_vo1.rtttl")
+    harmony = rtttl("sounds/easy_vo1.rtttl")
+elif total < 45:
+    melody = rtttl("sounds/med_vo1.rtttl")
+    harmony = rtttl("sounds/med_vo2.rtttl")
+else:
+    melody = rtttl("sounds/hard_vo1.rtttl")
+    harmony = rtttl("sounds/hard_vo2.rtttl")
+hasFanfared = False
+
+def explodes(posX, posY):
+    global select
+    global rumblFlag
+    global soundFlag
+    explodeSprt = sprt(position = Vector2(posX * 9 + 4, posY * 9 + 4),
+                       texture = explodeTxtr,
+                       transparent_color = Color(0, 0, 0),
+                       fps = 8,
+                       frame_count_x = 8,
+                       rotation = random.randint(0,3) * 1.570796326794897,
+                       opacity = 1,
+                       playing = True,
+                       layer = 11)
+    select.opacity = 0
+    if soundFlag == 1: audioChan = engine_audio.play(explodeWav, 0, False)
+    if rumblFlag == 1: rumble()
+    while explodeSprt.frame_current_x == 0: engine.tick() # First frame of animation
+    while explodeSprt.frame_current_x > 0: engine.tick() # Remaining frames of animation
+    explodeSprt.opacity = 0
+    explodeSprt.mark_destroy()
+    select.opacity = 1
 
 def reset():
+    global hasFanfared
     global grid
     global bomb
     global total
@@ -144,6 +194,7 @@ def reset():
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0],]
 
     count = total
+    hasFanfared = False
 
     while count > 0:
         x = random.randint(0, 13)
@@ -154,103 +205,69 @@ def reset():
             
 reset()
 
-
 def draw():
-    fbuf.rect(-1, -1, 128, 128, color(0, 0, 0), 1)
+    fbuf.rect(-1, -1, 128, 128, 0, 1)
     for y in range(len(grid)):
         for x in range(len(grid[y])):
-            if grid[y][x] == 9:
-                fbuf.blit(tile, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 10:
-                fbuf.blit(flag, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 0:
-                fbuf.blit(zero, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 1:
-                fbuf.blit(one, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 2:
-                fbuf.blit(two, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 3:
-                fbuf.blit(three, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 4:
-                fbuf.blit(four, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 5:
-                fbuf.blit(five, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 6:
-                fbuf.blit(six, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 7:
-                fbuf.blit(seven, x * 9 + 1, y * 9 + 1)
-            elif grid[y][x] == 8:
-                fbuf.blit(eight, x * 9 + 1, y * 9 + 1)
-                
+            if grid[y][x] == 9:    fbuf.blit(tile, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 10: fbuf.blit(flag, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 0:  fbuf.blit(zero, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 1:  fbuf.blit(one, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 2:  fbuf.blit(two, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 3:  fbuf.blit(three, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 4:  fbuf.blit(four, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 5:  fbuf.blit(five, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 6:  fbuf.blit(six, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 7:  fbuf.blit(seven, x * 9 + 1, y * 9 + 1)
+            elif grid[y][x] == 8:  fbuf.blit(eight, x * 9 + 1, y * 9 + 1)
 
 posX = 6
 posY = 6
 
-
 def countSurrounding(x, y, bomb, check):
     count = 0
     if x > 0 and y > 0:
-        if bomb[y - 1][x - 1] == check:
-            count += 1
+        if bomb[y - 1][x - 1] == check: count += 1
     if y > 0:
-        if bomb[y - 1][x] == check:
-            count += 1
+        if bomb[y - 1][x] == check: count += 1
     if x < 13 and y > 0:
-        if bomb[y - 1][x + 1] == check:
-            count += 1
+        if bomb[y - 1][x + 1] == check:  count += 1
     if x > 0:
-        if bomb[y][x - 1] == check:
-            count += 1
+        if bomb[y][x - 1] == check: count += 1
     if x < 13:
-        if bomb[y][x + 1] == check:
-            count += 1
+        if bomb[y][x + 1] == check: count += 1
     if x > 0 and y < 13:
-        if bomb[y + 1][x - 1] == check:
-            count += 1
+        if bomb[y + 1][x - 1] == check: count += 1
     if y < 13:
-        if bomb[y + 1][x] == check:
-            count += 1
+        if bomb[y + 1][x] == check: count += 1
     if x < 13 and y < 13:
-        if bomb[y + 1][x + 1] == check:
-            count += 1
+        if bomb[y + 1][x + 1] == check: count += 1
     return count
 
 def replaceSurrounding(x, y, replaceTarget, replaceValue):
         global grid
         if x > 0 and y > 0:
-            if grid[y - 1][x - 1] == replaceTarget:
-                grid[y - 1][x - 1] = replaceValue
+            if grid[y - 1][x - 1] == replaceTarget: grid[y - 1][x - 1] = replaceValue
         if y > 0:
-            if grid[y - 1][x] == replaceTarget:
-                grid[y - 1][x] = replaceValue
+            if grid[y - 1][x] == replaceTarget: grid[y - 1][x] = replaceValue
         if x < 13 and y > 0:
-            if grid[y - 1][x + 1] == replaceTarget:
-                grid[y - 1][x + 1] = replaceValue
+            if grid[y - 1][x + 1] == replaceTarget: grid[y - 1][x + 1] = replaceValue
         if x > 0:
-            if grid[y][x - 1] == replaceTarget:
-                grid[y][x - 1] = replaceValue
+            if grid[y][x - 1] == replaceTarget: grid[y][x - 1] = replaceValue
         if x < 13:
-            if grid[y][x + 1] == replaceTarget:
-                grid[y][x + 1] = replaceValue
+            if grid[y][x + 1] == replaceTarget: grid[y][x + 1] = replaceValue
         if x > 0 and y < 13:
-            if grid[y + 1][x - 1] == replaceTarget:
-                grid[y + 1][x - 1] = replaceValue
+            if grid[y + 1][x - 1] == replaceTarget: grid[y + 1][x - 1] = replaceValue
         if y < 13:
-            if grid[y + 1][x] == replaceTarget:
-                grid[y + 1][x] = replaceValue
+            if grid[y + 1][x] == replaceTarget: grid[y + 1][x] = replaceValue
         if x < 13 and y < 13:
-            if grid[y + 1][x + 1] == replaceTarget:
-                grid[y + 1][x + 1] = replaceValue
+            if grid[y + 1][x + 1] == replaceTarget: grid[y + 1][x + 1] = replaceValue
 
 def sweep(x, y, bomb, check):
     global grid
     count = countSurrounding(x, y, bomb, 1)
     flag = countSurrounding(x, y, grid, 10)
-  
-    if count == 0 or check == flag:
-        replaceSurrounding(x, y, 9, -1)
-        
-    
+    if count == 0 or check == flag: replaceSurrounding(x, y, 9, -1)
     return count
 
 def clear():
@@ -261,8 +278,9 @@ def clear():
             for column in range(len(grid[row])):
                 if grid[row][column] == -1:
                     if bomb[row][column] == 1:
-                       reset()
-                       break
+                        explodes(column, row)
+                        reset()
+                        break
                     grid[row][column] = sweep(column, row, bomb, 9)
 
 def hasWon():
@@ -278,63 +296,48 @@ def hasWon():
 
 while True:
     if engine.tick():
-        
         if hasWon():
-            
             topTxt.opacity = 1
             topTxt.text = 'You Win!'
-            
+            if (soundFlag == 1) and (hasFanfared == False):
+                audioChan1 = engine_audio.play(melody, 1, False)
+                audioChan2 = engine_audio.play(harmony, 2, False)
+                audioChan1.gain = 0.6
+                audioChan2.gain = 0.3
+                hasFanfared = True
             if btn.A.is_just_pressed:
                 reset()
                 topTxt.opacity = 0
             elif btn.MENU.is_just_pressed:
                 break
-            
             continue
-            
-        
-        
-        if btn.MENU.is_just_pressed:
-            break
+        if btn.MENU.is_just_pressed: break
         elif btn.UP.is_pressed_autorepeat:
-            if posY > 0:
-                posY -= 1
-            else:
-                posY = 13
+            if posY > 0: posY -= 1
+            else: posY = 13
         elif btn.DOWN.is_pressed_autorepeat:
-            if posY < 13:
-                posY += 1
-            else:
-                posY = 0
+            if posY < 13: posY += 1
+            else: posY = 0
         elif btn.LEFT.is_pressed_autorepeat:
-            if posX > 0:
-                posX -= 1
-            else:
-                posX = 13
+            if posX > 0: posX -= 1
+            else: posX = 13
         elif btn.RIGHT.is_pressed_autorepeat:
-            if posX < 13:
-                posX += 1
-            else:
-                posX = 0
+            if posX < 13: posX += 1
+            else: posX = 0
         elif btn.B.is_just_pressed:
-            if grid[posY][posX] == 9:
-                grid[posY][posX] = 10
-            elif grid[posY][posX] == 10:
-                grid[posY][posX] = 9
+            if grid[posY][posX] == 9: grid[posY][posX] = 10
+            elif grid[posY][posX] == 10: grid[posY][posX] = 9
             elif grid[posY][posX] == countSurrounding(posX, posY, grid, 9) + countSurrounding(posX, posY, grid, 10):
                 replaceSurrounding(posX, posY, 9, 10)
         elif btn.A.is_just_pressed:
             if grid[posY][posX] < 10 and grid[posY][posX] > 0:
                 if bomb[posY][posX] == 1:
-                    rumble()
+                    explodes(posX, posY)
                     reset()
                 else:
                     grid[posY][posX] = sweep(posX, posY, bomb, grid[posY][posX])
-                 
-
         clear()
         
         select.position = Vector2(posX * 9 + 5, posY * 9 + 5)
         draw()
-        #fb.blit(fbuf,0,0)
         engine.tick()
