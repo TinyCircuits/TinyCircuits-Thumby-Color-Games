@@ -1,0 +1,11 @@
+<< 15 Puzzle Cutie>>
+
+How about a 15-piece puzzle featuring cute illustrations?
+I've prepared 8 different designs.
+Use the left and right buttons to select a design, then press the A button to start.
+Use the up, down, left, and right buttons to slide the panels into place and complete the puzzle.
+
+You can create your own original puzzle by making a 128×128-pixel, 256-color BMP image and replacing the default image with it.
+
+Author: Kouji-MAT
+Version: 1.0
