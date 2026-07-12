@@ -1,0 +1,17 @@
+<< AniPzl >>
+
+Please call this “AniPuzzle.”
+It’s a puzzle game featuring 16×16-pixel animations.
+
+Select two panels and rearrange them to complete the picture.
+
+First, select a picture and press the A button to start.
+The panels will scatter.
+Select one panel by pressing the A button, then select another panel and press A again to swap them.
+
+If you press B while a panel is selected, you can reselect the first panel.
+If you press B when no panels are selected, the game will end, and you’ll return to the screen where you can select a new picture.
+
+
+Author: Kouji-MAT
+Version: 1.0
