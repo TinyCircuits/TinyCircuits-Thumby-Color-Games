@@ -1,0 +1,5 @@
+ChipPlayer
+
+A music player for tracker/chip modules that runs right on your Thumby Color. Browse and play Amiga ProTracker .mod files with real-time 4-channel mixing out the buzzer. Up/Down to pick a song, A to play, B to stop. Drop your own .mod files into the /Music folder (grab some from modarchive.org). Built to be extended: new chiptune formats (AY/YM, VGM, and more) plug in as small modules behind one shared audio engine.
+
+Author: zebtron
