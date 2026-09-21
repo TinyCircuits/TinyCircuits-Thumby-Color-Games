@@ -1,3 +1,16 @@
+NAME=ChipPlayer
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/arcade_title_image.png
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/songs/chipdemo.mod
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/formats/_template.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/mod.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/manifest.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/README.md
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/arcade_description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/mod_parser.py
+SIZE=44430
+
 NAME=ThumbyCounter
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbyCounter/arcade_title_video.webm
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ThumbyCounter/ThumbyCounter.py
