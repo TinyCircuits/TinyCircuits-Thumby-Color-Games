@@ -1,0 +1,2 @@
+An E-Reader app for the Thumby Color that uses .txt files.
+Author: niaziy168
