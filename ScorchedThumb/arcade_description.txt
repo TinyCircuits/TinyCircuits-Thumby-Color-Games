@@ -1,0 +1,24 @@
+Scorched Thumb
+
+Classic tank artillery on a tiny screen. Set your angle and power, read the wind, and lob shells across a destructible battlefield until one tank is left standing.
+
+- 2-4 players hotseat, any of them can be a CPU (Easy, Medium or Hard)
+- Destructible, scrolling battlefield twice the width of the screen
+- 9 weapons including MIRV, funky bomb, roller, dirt bomb and napalm
+- Shop between rounds, plus parachutes, shields and fuel for driving
+- Target Practice: 12 levels to earn stars on
+- Hall of Fame for game and round wins
+- Aim Help shows the start of your shot's path (handy for younger players)
+
+Controls:
+Left/Right: aim
+Up/Down: power
+A: fire
+B (tap): change weapon
+B (hold) + Left/Right: look around the battlefield
+LB/RB: drive (needs fuel)
+MENU: pause
+
+A tribute to Scorched Earth (1991) by Wendell Hicken. No original assets are used; the sounds are the author's own.
+
+Author: Slothmo
