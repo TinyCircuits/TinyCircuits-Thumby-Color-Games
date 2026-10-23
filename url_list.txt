@@ -8,7 +8,16 @@ https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/m
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/E-Read/processed.txt
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/E-Read/icon.bmp
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/E-Read/arcade_title_image.png.png
-SIZE=13673
+SIZE=13571
+
+NAME=ScorchedThumb
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/manifest.ini
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/main.py
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/arcade_description.txt
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/icon.bmp
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/boom.wav
+https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ScorchedThumb/arcade_title_image.png
+SIZE=90050
 
 NAME=ChipPlayer
 https://raw.githubusercontent.com/TinyCircuits/TinyCircuits-Thumby-Color-Games/main/ChipPlayer/mod.py
